@@ -9,8 +9,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DrawerDialog } from "./DrawerDialog";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import axios from 'axios';
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import useSWR, { mutate, trigger } from "swr";
+import useSWR, { mutate } from "swr";
 
 export function TableDemo({ data }) {
   const [open, setOpen] = useState(false);
@@ -99,7 +99,7 @@ export function TableDemo({ data }) {
                     </DrawerHeader>
                     <QrCodeGenerator
                       className="px-4"
-                      dataUser={[invoice.firstName, invoice.lastName]}
+                      dataUser={[invoice.firstName, invoice.lastName ,invoice._id ]}
                     />
                   </DrawerContent>
                 </Drawer>
@@ -115,28 +115,57 @@ export function TableDemo({ data }) {
 function QrCodeGenerator({ className, dataUser }: any) {
   const UrlWebSiteForUser = `http://localhost:3000/${dataUser[0]}-${dataUser[1]}`;
   const QrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${UrlWebSiteForUser}`;
+  const [isHidden, setIsHidden] = useState(true);
+
+  const SaveData = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.put('/users', { idUser:dataUser[2], UrlWebSiteForUser: UrlWebSiteForUser });
+      mutate('/users'); 
+      console.log('User updated successfully!');
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        console.error('User not found. Please check the user ID.');
+      } else {
+        console.error('Error updating user:', error.message);
+      }
+    }
+  };
+  
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsHidden(false);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, []); // Run the effect only once when the component mounts
+
   return (
     <div className="flex justify-center items-center">
-      <form className={cn("grid items-start gap-4 w-[50%]", className)}>
+      <form className={cn("grid items-start gap-4 w-[50%]", className)} onSubmit={SaveData}>
         <a
           href="#"
           className="inline-flex items-center justify-center p-5 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
         >
           <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="w-10 h-10 text-[#ff9716] mr-5"
-            >
-              <path
-                fillRule="evenodd"
-                d="M3 4.875C3 3.839 3.84 3 4.875 3h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 0 1 3 9.375v-4.5ZM4.875 4.5a.375.375 0 0 0-.375.375v4.5c0 .207.168.375.375.375h4.5a.375.375 0 0 0 .375-.375v-4.5a.375.375 0 0 0-.375-.375h-4.5Zm7.875.375c0-1.036.84-1.875 1.875-1.875h4.5C20.16 3 21 3.84 21 4.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5a1.875 1.875 0 0 1-1.875-1.875v-4.5Zm1.875-.375a.375.375 0 0 0-.375.375v4.5c0 .207.168.375.375.375h4.5a.375.375 0 0 0 .375-.375v-4.5a.375.375 0 0 0-.375-.375h-4.5ZM6 6.75A.75.75 0 0 1 6.75 6h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75A.75.75 0 0 1 6 7.5v-.75Zm9.75 0A.75.75 0 0 1 16.5 6h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75ZM3 14.625c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.035-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 0 1 3 19.125v-4.5Zm1.875-.375a.375.375 0 0 0-.375.375v4.5c0 .207.168.375.375.375h4.5a.375.375 0 0 0 .375-.375v-4.5a.375.375 0 0 0-.375-.375h-4.5Zm7.875-.75a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Zm6 0a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75ZM6 16.5a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Zm9.75 0a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Zm-3 3a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Zm6 0a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Z"
-                clipRule="evenodd"
-              />
-            </svg>
-          
-          <span className="w-full"><span className="text-[17px] font-bold ">Link :</span> {UrlWebSiteForUser}</span>
-          <svg 
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-10 h-10 text-[#ff9716] mr-5"
+          >
+            <path
+              fillRule="evenodd"
+              d="M3 4.875C3 3.839 3.84 3 4.875 3h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 0 1 3 9.375v-4.5ZM4.875 4.5a.375.375 0 0 0-.375.375v4.5c0 .207.168.375.375.375h4.5a.375.375 0 0 0 .375-.375v-4.5a.375.375 0 0 0-.375-.375h-4.5Zm7.875.375c0-1.036.84-1.875 1.875-1.875h4.5C20.16 3 21 3.84 21 4.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5a1.875 1.875 0 0 1-1.875-1.875v-4.5Zm1.875-.375a.375.375 0 0 0-.375.375v4.5c0 .207.168.375.375.375h4.5a.375.375 0 0 0 .375-.375v-4.5a.375.375 0 0 0-.375-.375h-4.5ZM6 6.75A.75.75 0 0 1 6.75 6h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75A.75.75 0 0 1 6 7.5v-.75Zm9.75 0A.75.75 0 0 1 16.5 6h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75ZM3 14.625c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.035-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 0 1 3 19.125v-4.5Zm1.875-.375a.375.375 0 0 0-.375.375v4.5c0 .207.168.375.375.375h4.5a.375.375 0 0 0 .375-.375v-4.5a.375.375 0 0 0-.375-.375h-4.5Zm7.875-.75a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Zm6 0a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75ZM6 16.5a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Zm9.75 0a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Zm-3 3a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Zm6 0a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Z"
+              clipRule="evenodd"
+            />
+          </svg>
+
+          <span className="w-full">
+            <span className="text-[17px] font-bold ">Link :</span>{" "}
+            {UrlWebSiteForUser}
+          </span>
+          <svg
             className="w-4 h-4 ms-2 rtl:rotate-180"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
@@ -155,11 +184,18 @@ function QrCodeGenerator({ className, dataUser }: any) {
         </a>
 
         <div className="flex justify-center items-center">
-          <img
-            src={QrCodeUrl}
-            className="h-[200px] max-w-sm rounded-lg shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
-            alt=""
-          />
+          {!isHidden && (
+            <img
+              src={QrCodeUrl}
+              className={`h-[200px] max-w-sm rounded-lg shadow-none hover:shadow-lg hover:shadow-black/30`}
+              alt=""
+            />
+          )}
+          {isHidden && (
+            <div className="bg-white flex space-x-12 p-12 justify-center items-center w-full ">
+              <div className="h-20 w-20 bg-[#ffd5a1] p-2 animate-spin rounded-md"></div>
+            </div>
+          )}
         </div>
 
         <Button
@@ -175,4 +211,3 @@ function QrCodeGenerator({ className, dataUser }: any) {
     </div>
   );
 }
-

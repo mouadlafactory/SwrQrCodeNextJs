@@ -9,9 +9,7 @@ import Navbar from "./Navbar";
 
 
 export function Home({ usersFromServer }: any) {
-  const { data, isLoading } = useSWR("/users", {
-    initialData: usersFromServer,
-  });
+  const { data, isLoading } = useSWR("/users");
   if (isLoading) {
     return (
       <div className="bg-white flex space-x-12 p-12 justify-center items-center w-full h-screen">
@@ -24,7 +22,7 @@ export function Home({ usersFromServer }: any) {
   return (
     <>
     
-      <div className="w-full h-screen flex justify-center items-center flex-col">
+      <div className="w-full h-screen flex  items-center flex-col">
         <Navbar />
         <TableDemo data={data} />
       </div>
