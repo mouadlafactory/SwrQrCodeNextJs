@@ -1,7 +1,6 @@
 import axios from "axios";
 import React from "react";
-import useSWR, { mutate, trigger } from "swr";
-import { AddComment } from "./AddComment";
+import useSWR, { mutate } from "swr";
 import { TableDemo } from "./TableDemo";
 import Navbar from "./Navbar";
 import { useRouter } from "next/router";
