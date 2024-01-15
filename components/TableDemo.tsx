@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import { DrawerDialog } from "./DrawerDialog";
 import { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,6 +34,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useSWR, { mutate } from "swr";
+import { useToast } from "@/components/ui/use-toast";
 
 export function TableDemo({ data }) {
   const [open, setOpen] = useState(false);
@@ -99,7 +100,11 @@ export function TableDemo({ data }) {
                     </DrawerHeader>
                     <QrCodeGenerator
                       className="px-4"
-                      dataUser={[invoice.firstName, invoice.lastName ,invoice._id ]}
+                      dataUser={[
+                        invoice.firstName,
+                        invoice.lastName,
+                        invoice._id,
+                      ]}
                     />
                   </DrawerContent>
                 </Drawer>
@@ -113,26 +118,56 @@ export function TableDemo({ data }) {
 }
 
 function QrCodeGenerator({ className, dataUser }: any) {
-  const UrlWebSiteForUser = `http://localhost:3000/${dataUser[0]}-${dataUser[1]}`;
+  const [disabled, setDisabled] = useState(false);
+  const UrlWebSiteForUser = `http://localhost:3000/profile/${dataUser[0]}-${dataUser[1]}`;
   const QrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${UrlWebSiteForUser}`;
   const [isHidden, setIsHidden] = useState(true);
+  const { toast } = useToast();
 
   const SaveData = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.put('/users', { idUser:dataUser[2], UrlWebSiteForUser: UrlWebSiteForUser });
-      mutate('/users'); 
-      console.log('User updated successfully!');
+      setDisabled(true);
+      await axios.put("/users", {
+        idUser: dataUser[2],
+        UrlWebSiteForUser: UrlWebSiteForUser,
+      });
+      mutate("/users");
+      setDisabled(false);
+      toast({
+        description: "User updated successfully!",
+        style: {
+          backgroundColor: "green", // Set the background color to green
+          color: "white", // Set the text color to white or any other contrasting color
+        },
+      });
+      console.log("User updated successfully!");
     } catch (error) {
+      setDisabled(false);
+      
       if (error.response && error.response.status === 404) {
-        console.error('User not found. Please check the user ID.');
+        toast({
+          description: "User not found. Please check the user ID.",
+          style: {
+            backgroundColor: "red", // Set the background color to green
+            color: "white", // Set the text color to white or any other contrasting color
+          },
+        });
+        console.error("User not found. Please check the user ID.");
       } else {
-        console.error('Error updating user:', error.message);
+        toast({
+          description: `Error updating user: ${error.message}`,
+          style: {
+            backgroundColor: "red", // Set the background color to green
+            color: "white", // Set the text color to white or any other contrasting color
+          },
+        });
+        console.error("Error updating user:", error.message);
       }
     }
   };
-  
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setIsHidden(false);
@@ -143,9 +178,12 @@ function QrCodeGenerator({ className, dataUser }: any) {
 
   return (
     <div className="flex justify-center items-center">
-      <form className={cn("grid items-start gap-4 w-[50%]", className)} onSubmit={SaveData}>
+      <form
+        className={cn("grid items-start gap-4 w-[50%]", className)}
+        onSubmit={SaveData}
+      >
         <a
-          href="#"
+          href={UrlWebSiteForUser}
           className="inline-flex items-center justify-center p-5 text-base font-medium text-gray-500 rounded-lg bg-gray-50 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
         >
           <svg
@@ -201,6 +239,7 @@ function QrCodeGenerator({ className, dataUser }: any) {
         <Button
           type="submit"
           className="bg-[#f1a447] text-[#0f172a] text-[15px] hover:bg-[#e4c197]"
+          disabled={disabled}
         >
           Save Qr Code
         </Button>

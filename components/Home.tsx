@@ -4,7 +4,7 @@ import useSWR, { mutate, trigger } from "swr";
 import { AddComment } from "./AddComment";
 import { TableDemo } from "./TableDemo";
 import Navbar from "./Navbar";
-
+import { useRouter } from "next/router";
 
 
 
@@ -17,11 +17,8 @@ export function Home({ usersFromServer }: any) {
       </div>
     );
   }
-  console.log("isLoading",isLoading)
-  console.log("data",data)
   return (
     <>
-    
       <div className="w-full h-screen flex  items-center flex-col">
         <Navbar />
         <TableDemo data={data} />
