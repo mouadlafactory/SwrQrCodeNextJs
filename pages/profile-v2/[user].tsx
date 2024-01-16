@@ -81,7 +81,7 @@ const ProfilePage: React.FC = () => {
               mouad.n
             </Button>
             <Button className=" p-2 bg-white text-[#1d1d1d] border-2 border-solid border-[#ececec] rounded-[10px]">
-              mouad.itdkas
+              mouad.itdkasa
             </Button>
             <Button className=" p-2 bg-white text-[#1d1d1d] border-2 border-solid border-[#ececec] rounded-[10px]">
               mouad.su
