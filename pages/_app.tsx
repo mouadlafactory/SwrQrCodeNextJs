@@ -5,7 +5,7 @@ import Head from "next/head";
 import axios from "axios";
 import { Toaster } from "@/components/ui/toaster"
 
-axios.defaults.baseURL = "http://localhost:8080/";
+axios.defaults.baseURL = "https://serverexpress-hosting.vercel.app/";
 
 export default function App({ Component, pageProps }: AppProps) {
   <Head>
