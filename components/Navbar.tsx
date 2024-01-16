@@ -46,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode = false }) => {
                 clipRule="evenodd"
               />
             </svg>
-            lastartupsnation
+            lastartupsnation Qr
           </h1>
         </a>
 
