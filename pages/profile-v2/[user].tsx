@@ -77,7 +77,7 @@ const ProfilePage: React.FC = () => {
           <div className="rounded-t-[15px] h-32 overflow-hidden">
             <img
               className="object-cover object-top w-full"
-              src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
+              src="https://firebasestorage.googleapis.com/v0/b/ecommerce-arkx.appspot.com/o/dark-gray-background.jpg?alt=media&token=763e87f8-965d-4f70-b53f-3f40093f8cc2"
               alt="Mountain"
             />
           </div>
