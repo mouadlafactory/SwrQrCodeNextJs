@@ -119,7 +119,7 @@ export function TableDemo({ data }) {
 
 function QrCodeGenerator({ className, dataUser }: any) {
   const [disabled, setDisabled] = useState(false);
-  const UrlWebSiteForUser = `https://lastartupstation.vercel.app/profile/${dataUser[0]}-${dataUser[1]}`;
+  const UrlWebSiteForUser = `https://lastartupstation.vercel.app/profile-v2/${dataUser[0]}-${dataUser[1]}`;
   const QrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${UrlWebSiteForUser}`;
   const [isHidden, setIsHidden] = useState(true);
   const { toast } = useToast();
