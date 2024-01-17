@@ -75,12 +75,34 @@ const config = {
           from: { opacity: '0', transform: 'translateX(-20px)' },
           to: { opacity: '1', transform: 'translateX(0)' },
         },
+        'jump-in': {
+          '0%, 20%, 50%, 80%, 100%': {
+            transform: 'translateY(0)',
+          },
+          '40%': {
+            transform: 'translateY(-30px)',
+          },
+          '60%': {
+            transform: 'translateY(-15px)',
+          },
+        },
+        'fade-down': {
+          from: { opacity: '0', transform: 'translateY(-20px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        'fade-left': {
+          from: { opacity: '0', transform: 'translateX(20px)' },
+          to: { opacity: '1', transform: 'translateX(0)' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         'fade-up': 'fade-up 0.5s ease-out',
         'fade-right': 'fade-right 0.5s ease-out',
+        'jump-in': 'jump-in 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.3s',
+        'fade-down': 'fade-down 0.5s ease-out',
+        'fade-left': 'fade-left 0.5s ease-out',
       },
 
     },
