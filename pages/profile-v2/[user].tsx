@@ -74,7 +74,7 @@ const ProfilePage: React.FC = () => {
   return (
     <>
       <div className="w-full h-screen gap-4 flex flex-col justify-start items-center bg-gray-200">
-        <div className=" w-[90%] shadow mt-5 bg-white  rounded-[15px] text-gray-900 animate-fade-up animate-delay-300">
+        <div className=" w-[90%] shadow mt-5 bg-white  rounded-[15px] text-gray-900 animate-fade-up animate-delay-500">
           <div className="rounded-t-[15px] h-32 overflow-hidden">
             <img
               className="object-cover object-top w-full"
