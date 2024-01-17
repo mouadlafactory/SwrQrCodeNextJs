@@ -66,7 +66,7 @@ const ProfilePage: React.FC = () => {
   if (isLoading) {
     return (
       <div className="bg-white flex space-x-12 p-12 justify-center items-center w-full h-screen">
-        <div className="h-20 w-20 bg-[#ffd5a1] p-2 animate-spin rounded-md"></div>
+        <div className="h-20 w-20 bg-gray-800 p-2 animate-spin rounded-md"></div>
       </div>
     );
   }
@@ -77,7 +77,7 @@ const ProfilePage: React.FC = () => {
           <div className="rounded-t-[15px] h-32 overflow-hidden">
             <img
               className="object-cover object-top w-full"
-              src="https://firebasestorage.googleapis.com/v0/b/ecommerce-arkx.appspot.com/o/dark-gray-background.jpg?alt=media&token=763e87f8-965d-4f70-b53f-3f40093f8cc2"
+              src="/dark-gray-background.jpg"
               alt="Mountain"
             />
           </div>
