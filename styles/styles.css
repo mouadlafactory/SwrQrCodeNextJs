@@ -1,0 +1,22 @@
+/* styles.module.css */
+
+@keyframes slide-from-left {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+}
+
+.transition-div {
+    width: 200px;
+    height: 100px;
+    background-color: #3498db;
+    color: #fff;
+    text-align: center;
+    line-height: 100px;
+    position: absolute;
+    left: -200px;
+    animation: slide-from-left 1s ease-out forwards;
+}

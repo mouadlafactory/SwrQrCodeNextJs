@@ -1,9 +1,11 @@
 import "@/styles/globals.css";
+import "@/styles/styles.css";
 import type { AppProps } from "next/app";
 import { SWRConfig } from "swr";
 import Head from "next/head";
 import axios from "axios";
 import { Toaster } from "@/components/ui/toaster"
+
 
 axios.defaults.baseURL = "https://serverexpress-hosting.vercel.app/";
 

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { FaPlus } from "react-icons/fa";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+
 const ProfilePage: React.FC = () => {
   const router = useRouter();
   const userName = router.query.user?.toString() || "";
@@ -73,7 +74,7 @@ const ProfilePage: React.FC = () => {
   return (
     <>
       <div className="w-full h-screen gap-4 flex flex-col justify-start items-center bg-gray-200">
-        <div className=" w-[90%] shadow mt-5 bg-white  rounded-[15px] text-gray-900">
+        <div className=" w-[90%] shadow mt-5 bg-white  rounded-[15px] text-gray-900 animate-fade-up animate-delay-300">
           <div className="rounded-t-[15px] h-32 overflow-hidden">
             <img
               className="object-cover object-top w-full"
@@ -169,7 +170,7 @@ const ProfilePage: React.FC = () => {
             defaultValue="profile"
             className="w-[90%] flex justify-center items-center flex-col bg-gray-200 "
           >
-            <TabsList className="w-[100%] mb-2 shadow flex justify-evenly items-center h-30">
+            <TabsList className="w-[100%] mb-2 shadow flex justify-evenly items-center h-30 animate-fade-right animate-delay-300">
               <TabsTrigger value="profile" className="w-[20%]">
                 <svg
                   className="w-5 h-5"
@@ -223,7 +224,7 @@ const ProfilePage: React.FC = () => {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="profile" className="w-[100%] mb-5">
-              <div className="bg-white p-5 rounded-2xl">
+              <div className="bg-white p-5 rounded-2xl animate-fade-right animate-delay-300">
                 <div className="font-sans leading-20 text-[#0d0d0d] text-[18px] font-[600] mb-2">
                   Contact
                 </div>
@@ -320,7 +321,7 @@ const ProfilePage: React.FC = () => {
                   </li>
                 </ul>
               </div>
-              <div className="bg-white p-5 rounded-2xl mt-3">
+              <div className="bg-white p-5 rounded-2xl mt-3 animate-fade-right animate-delay-300">
                 <div className="font-sans leading-20 text-[#0d0d0d] text-[18px] font-[600] mb-2">
                   Work
                 </div>
@@ -392,7 +393,7 @@ const ProfilePage: React.FC = () => {
                   </li>
                 </ul>
               </div>
-              <div className="bg-white p-5 rounded-2xl mt-3">
+              <div className="bg-white p-5 rounded-2xl mt-3 animate-fade-right animate-delay-300">
                 <div className="font-sans leading-20 text-[#0d0d0d] text-[18px] font-[600] mb-2">
                   Education
                 </div>
