@@ -99,7 +99,7 @@ const ProfilePage: React.FC = () => {
             </div>
             <div className="text-center font-sans text-[#595b5a] text-[17px] font-[400] w-[85%] mt-5 animate-fade-up animate-delay-300">
               I design clothes that are vintage- inspired, I have a passion for
-              helping others express their creativity.
+              helping others express their creativity 👨‍💻🔴.
             </div>
           </div>
 
