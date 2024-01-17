@@ -68,11 +68,11 @@ const config = {
           to: { height: "0" },
         },
         'fade-up': {
-          from: { opacity: '0', transform: 'translateY(20px)' },
+          from: { opacity: '0', transform: 'translateY(100px)' },
           to: { opacity: '1', transform: 'translateY(0)' },
         },
         'fade-right': {
-          from: { opacity: '0', transform: 'translateX(-20px)' },
+          from: { opacity: '0', transform: 'translateX(-200px)' },
           to: { opacity: '1', transform: 'translateX(0)' },
         },
         'jump-in': {

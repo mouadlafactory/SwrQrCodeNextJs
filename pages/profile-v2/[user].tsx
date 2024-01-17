@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { FaPlus } from "react-icons/fa";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-
 const ProfilePage: React.FC = () => {
   const router = useRouter();
   const userName = router.query.user?.toString() || "";
@@ -56,7 +55,7 @@ const ProfilePage: React.FC = () => {
               </div>
               <div>
                 <p className="font-bold">User Not found </p>
-                <p className="text-sm">{error?.response?.data?.message}  </p>
+                <p className="text-sm">{error?.response?.data?.message} </p>
               </div>
             </div>
           </div>
@@ -73,7 +72,7 @@ const ProfilePage: React.FC = () => {
   }
   return (
     <>
-      <div className="w-full h-screen gap-4 flex flex-col justify-start items-center bg-gray-200">
+      <div className="w-full h-screen  flex flex-col justify-start items-center bg-gray-200">
         <div className=" w-[90%] shadow mt-5 bg-white  rounded-[15px] text-gray-900 animate-fade-right animate-delay-300">
           <div className="rounded-t-[15px] h-32 overflow-hidden animate-fade-down animate-once animate-delay-300">
             <img
@@ -91,7 +90,7 @@ const ProfilePage: React.FC = () => {
           </div>
           <div className="text-center flex flex-col justify-center items-center mt-2">
             <h3 className="font-sans leading-20 text-[#0d0d0d] text-[25px] font-semibold animate-fade-left animate-once animate-delay-300">
-            {data?.firstName} {data?.lastName}
+              {data?.firstName} {data?.lastName}
             </h3>
             <div className="font-sans text-[#595b5a] text-[17px] font-medium animate-fade-up animate-delay-300">
               AR Fashion Designer at{" "}
@@ -152,16 +151,18 @@ const ProfilePage: React.FC = () => {
               </svg>
               <span className="text-[16px]">mouad.nsanss</span>
             </Button>
-
           </div>
         </div>
-        <div className="w-[100%] flex justify-center items-center flex-col bg-gray-200 ">
+        <div className="w-[100%] mt-3 flex justify-center items-center flex-col bg-gray-200 ">
           <Tabs
             defaultValue="profile"
             className="w-[90%] flex justify-center items-center flex-col bg-gray-200 "
           >
             <TabsList className="w-[100%] mb-2 shadow flex justify-evenly items-center h-30 animate-fade-right animate-delay-300">
-              <TabsTrigger value="profile" className="w-[20%] animate-fade-up animate-delay-300">
+              <TabsTrigger
+                value="profile"
+                className="w-[20%] animate-fade-up animate-delay-300"
+              >
                 <svg
                   className="w-5 h-5"
                   aria-hidden="true"
@@ -178,7 +179,10 @@ const ProfilePage: React.FC = () => {
                   />
                 </svg>
               </TabsTrigger>
-              <TabsTrigger value="about" className="w-[20%] animate-fade-up animate-delay-300">
+              <TabsTrigger
+                value="about"
+                className="w-[20%] animate-fade-up animate-delay-300"
+              >
                 <svg
                   className="w-5 h-5 "
                   aria-hidden="true"
@@ -195,7 +199,10 @@ const ProfilePage: React.FC = () => {
                   />
                 </svg>
               </TabsTrigger>
-              <TabsTrigger value="link" className="w-[20%] animate-fade-up animate-delay-300">
+              <TabsTrigger
+                value="link"
+                className="w-[20%] animate-fade-up animate-delay-300"
+              >
                 <svg
                   className="w-5 h-5"
                   aria-hidden="true"
@@ -244,7 +251,7 @@ const ProfilePage: React.FC = () => {
                           Phone
                         </p>
                         <p className="text-[16px] text-gray-900 truncate dark:text-gray-400">
-                        {data?.phone}
+                          {data?.phone}
                         </p>
                       </div>
                     </div>
@@ -274,7 +281,7 @@ const ProfilePage: React.FC = () => {
                           Email
                         </p>
                         <p className="text-[16px] text-gray-900 truncate dark:text-gray-400">
-                        {data?.email}
+                          {data?.email}
                         </p>
                       </div>
                     </div>
@@ -427,7 +434,16 @@ const ProfilePage: React.FC = () => {
                   About me
                 </div>
                 <div className="font-sans text-[#0d0d0d] text-[17px] font-[400] w-[90%] mt-5">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industrys
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum.
                 </div>
               </div>
             </TabsContent>
@@ -526,6 +542,29 @@ const ProfilePage: React.FC = () => {
               </div>
             </TabsContent>
           </Tabs>
+        </div>
+        <div className="w-[100%] p-2 sticky bottom-0 right-0 opacity-1 flex justify-center items-center bg-opacity-0 ">
+          <div className=" animate-fade-up animate-once animate-delay-300 w-[90%] rounded-full bg-white flex justify-between items-center pt-2 pb-2 pl-3 pr-3 border-2 border-solid border-[#eeebee]">
+            <Button className="animate-fade-right animate-once animate-delay-300 active:bg-gray-500 w-[65%] h-[90%] rounded-full bg-[#111013] text-[15px]">
+              Add To Contacts
+            </Button>
+            <Button className=" animate-fade-right animate-once animate-delay-300 hover:bg-gray-300  active:bg-gray-500 w-[30%] h-[60%] rounded-full bg-white border-2 border-solid border-[#ececec] text-[#111013]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z"
+                />
+              </svg>
+            </Button>
+          </div>
         </div>
       </div>
     </>
