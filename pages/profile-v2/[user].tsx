@@ -1,51 +1,62 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import useSWR, { mutate } from "swr";
 import { Button } from "@/components/ui/button";
 import { FaPlus } from "react-icons/fa";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import vcf from "vcf";
 
-
-
 const ProfilePage: React.FC = () => {
   const router = useRouter();
   const userName = router.query.user?.toString() || "";
-  const { data, isLoading, error } = useSWR(`/user/profile/${userName}`);
+  const { data, isValidating , error , isLoading } = useSWR(`/user/profile/${userName}`);
 
   const [contactInfo, setContactInfo] = useState({
-    n: "Gump;Forrest;;;",
-    fn: "Forrest Gump",
-    org: "Bubba Gump Shrimp Co.",
-    title: "Shrimp Man",
+    fn: " ",
     photo: {
-      uri: "http://www.example.com/dir_photos/my_photo.gif",
+      uri: " ",
       mediatype: "image/gif",
     },
     tel: [
-      { value: "tel:+11115551212", type: ["work", "voice"], valueType: "uri" },
-      { value: "tel:+14045551212", type: ["home", "voice"], valueType: "uri" },
-    ],
-    adr: [
       {
-        value: ";;100 Waters Edge;Baytown;LA;30314;United States of America",
-        type: "work",
-        label:
-          '"100 Waters Edge\\nBaytown, LA 30314\\nUnited States of America"',
+        value: " ",
+        type: ["work", "voice"],
+        valueType: "uri",
       },
       {
-        value: ";;42 Plantation St.;Baytown;LA;30314;United States of America",
-        type: "home",
-        label:
-          '"42 Plantation St.\\nBaytown, LA 30314\\nUnited States of America"',
+        value: " ",
+        type: ["home", "voice"],
+        valueType: "uri",
       },
     ],
-    email: "forrestgump@example.com",
+    email: " ",
   });
+
+  useEffect(() => {
+    setContactInfo({
+      fn: `${data?.firstName} ${data?.lastName}` || " ",
+      photo: {
+        uri: data?.image || " ",
+        mediatype: "image/gif",
+      },
+      tel: [
+        {
+          value: `tel:${data?.phone}` || " ",
+          type: ["work", "voice"],
+          valueType: "uri",
+        },
+        {
+          value: `tel:${data?.phone}` || " ",
+          type: ["home", "voice"],
+          valueType: "uri",
+        },
+      ],
+      email: data?.email || " ",
+    });
+  }, [data, isValidating]);
 
   const createVCard = (): string => {
     const vCard = new vcf();
-
     vCard.add("fn", contactInfo.fn);
     vCard.add("email", contactInfo.email);
     vCard.add("tel", contactInfo.tel[0].value);
@@ -56,7 +67,6 @@ const ProfilePage: React.FC = () => {
 
   const downloadFile = (content: string, fileName: string) => {
     const blob = new Blob([content], { type: "text/vcard" });
-
     const link = document.createElement("a");
     link.href = window.URL.createObjectURL(blob);
     link.download = fileName;
@@ -67,34 +77,12 @@ const ProfilePage: React.FC = () => {
   };
 
   const downloadVcf = () => {
-    setContactInfo((prevContactInfo) => ({
-      ...prevContactInfo,
-      fn: `${data?.firstName} ${data?.lastName}`,
-      photo: {
-        uri: data?.image,
-        mediatype: "image/gif",
-      },
-      tel: [
-        {
-          value: `tel:${data?.phone}`,
-          type: ["work", "voice"],
-          valueType: "uri",
-        },
-        {
-          value: `tel:${data?.phone}`,
-          type: ["home", "voice"],
-          valueType: "uri",
-        },
-      ],
-      email: data?.email,
-    }));
-
     console.log(contactInfo);
 
     const vCardData = createVCard();
 
     // Download vCard file
-    downloadFile(vCardData, "contact.vcf");
+    downloadFile(vCardData, `${contactInfo.fn}-contact.vcf`);
   };
 
   if (error) {
@@ -158,7 +146,7 @@ const ProfilePage: React.FC = () => {
       </div>
     );
   }
-
+  
   return (
     <>
       <div className="w-full h-screen  flex flex-col justify-start items-center bg-gray-200">
