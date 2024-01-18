@@ -640,9 +640,9 @@ const ProfilePage: React.FC = () => {
             </Button>
             <RWebShare
               data={{
-                text: "Like humans, flamingos make friends for life",
-                url: "https://on.natgeo.com/2zHaNup",
-                title: "Flamingos",
+                text: "Check out this link: \n",
+                url: "https://lastartupstation.vercel.app/profile-v2/Mehdi-Alaoui",
+                title: "Qr Code ",
               }}
               onClick={() => console.log("shared successfully!")}
             >
