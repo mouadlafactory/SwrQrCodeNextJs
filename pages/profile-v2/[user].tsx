@@ -4,41 +4,99 @@ import useSWR, { mutate } from "swr";
 import { Button } from "@/components/ui/button";
 import { FaPlus } from "react-icons/fa";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import vcf from "vcf";
+
+
 
 const ProfilePage: React.FC = () => {
   const router = useRouter();
   const userName = router.query.user?.toString() || "";
   const { data, isLoading, error } = useSWR(`/user/profile/${userName}`);
-  
+
   const [contactInfo, setContactInfo] = useState({
-    firstName: data?.firstName || "",
-    lastName: data?.lastName || "",
-    email: data?.email || "",
-    phoneNumber: data?.phoneNumber || "", // Use the correct property for the phone number
+    n: "Gump;Forrest;;;",
+    fn: "Forrest Gump",
+    org: "Bubba Gump Shrimp Co.",
+    title: "Shrimp Man",
+    photo: {
+      uri: "http://www.example.com/dir_photos/my_photo.gif",
+      mediatype: "image/gif",
+    },
+    tel: [
+      { value: "tel:+11115551212", type: ["work", "voice"], valueType: "uri" },
+      { value: "tel:+14045551212", type: ["home", "voice"], valueType: "uri" },
+    ],
+    adr: [
+      {
+        value: ";;100 Waters Edge;Baytown;LA;30314;United States of America",
+        type: "work",
+        label:
+          '"100 Waters Edge\\nBaytown, LA 30314\\nUnited States of America"',
+      },
+      {
+        value: ";;42 Plantation St.;Baytown;LA;30314;United States of America",
+        type: "home",
+        label:
+          '"42 Plantation St.\\nBaytown, LA 30314\\nUnited States of America"',
+      },
+    ],
+    email: "forrestgump@example.com",
   });
 
-  const downloadVcf = () => {
-    // Create a vCard string
-    const vCardData = `
-BEGIN:VCARD
-VERSION:3.0
-FN:${contactInfo.firstName} ${contactInfo.lastName}
-EMAIL:${contactInfo.email}
-TEL:${contactInfo.phoneNumber}
-END:VCARD
-`;
+  const createVCard = (): string => {
+    const vCard = new vcf();
 
-    // Convert the vCard string to a Blob
-    const blob = new Blob([vCardData], { type: "text/vcard" });
+    vCard.add("fn", contactInfo.fn);
+    vCard.add("email", contactInfo.email);
+    vCard.add("tel", contactInfo.tel[0].value);
+    // Add other properties as needed
 
-    // Create a link element and trigger a click to start the download
-    const link = document.createElement("a");
-    link.href = window.URL.createObjectURL(blob);
-    link.download = "contact.vcf";
-    link.click();
+    return vCard.toString();
   };
 
-  
+  const downloadFile = (content: string, fileName: string) => {
+    const blob = new Blob([content], { type: "text/vcard" });
+
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = fileName;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const downloadVcf = () => {
+    setContactInfo((prevContactInfo) => ({
+      ...prevContactInfo,
+      fn: `${data?.firstName} ${data?.lastName}`,
+      photo: {
+        uri: data?.image,
+        mediatype: "image/gif",
+      },
+      tel: [
+        {
+          value: `tel:${data?.phone}`,
+          type: ["work", "voice"],
+          valueType: "uri",
+        },
+        {
+          value: `tel:${data?.phone}`,
+          type: ["home", "voice"],
+          valueType: "uri",
+        },
+      ],
+      email: data?.email,
+    }));
+
+    console.log(contactInfo);
+
+    const vCardData = createVCard();
+
+    // Download vCard file
+    downloadFile(vCardData, "contact.vcf");
+  };
+
   if (error) {
     if (error?.response?.status === 300) {
       return (
@@ -100,6 +158,7 @@ END:VCARD
       </div>
     );
   }
+
   return (
     <>
       <div className="w-full h-screen  flex flex-col justify-start items-center bg-gray-200">
@@ -575,7 +634,10 @@ END:VCARD
         </div>
         <div className="custom-shadow-gray  w-[100%] pt-3 pb-3 sticky bottom-0 right-0 opacity-1 flex bg-white justify-center items-center border-2 border-solid border-[#eeebee]">
           <div className=" animate-fade-up animate-once animate-delay-300 w-[100%] bg-white flex justify-between items-center pt-1 pb-1 pl-5 pr-5 ">
-            <Button onClick={downloadVcf} className="animate-fade-right animate-once animate-delay-300 active:bg-gray-500 w-[75%] h-[50px]  bg-[#111013] text-[15px]">
+            <Button
+              onClick={downloadVcf}
+              className="animate-fade-right animate-once animate-delay-300 active:bg-gray-500 w-[75%] h-[50px]  bg-[#111013] text-[15px]"
+            >
               Add To Contacts
             </Button>
             <Button className="animate-fade-right animate-once animate-delay-300 hover:bg-gray-300  active:bg-gray-500 w-[20%] h-[50px] bg-white border-2 border-solid border-[#ececec] text-[#111013]">
