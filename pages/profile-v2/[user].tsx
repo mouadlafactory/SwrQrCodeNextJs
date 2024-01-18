@@ -641,7 +641,7 @@ const ProfilePage: React.FC = () => {
             <RWebShare
               data={{
                 text: "Check out this link: \n",
-                url: "https://lastartupstation.vercel.app/profile-v2/Mehdi-Alaoui",
+                url: `https://lastartupstation.vercel.app/profile-v2/${data?.firstName}-${data?.lastName}`,
                 title: "Qr Code ",
               }}
               onClick={() => console.log("shared successfully!")}
