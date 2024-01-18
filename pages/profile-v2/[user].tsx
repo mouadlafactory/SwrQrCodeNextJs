@@ -84,6 +84,13 @@ const ProfilePage: React.FC = () => {
     // Download vCard file
     downloadFile(vCardData, `${contactInfo.fn}-contact.vcf`);
   };
+  const shareLink = () => {
+    const message = `Check out this link: https://lastartupstation.vercel.app/profile-v2/${data?.firstName}-${data?.lastName}`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappLink = `https://wa.me/?text=${encodedMessage}`;
+
+    window.open(whatsappLink, "_blank");
+  };
 
   if (error) {
     if (error?.response?.status === 300) {
@@ -628,7 +635,7 @@ const ProfilePage: React.FC = () => {
             >
               Add To Contacts
             </Button>
-            <Button className="animate-fade-right animate-once animate-delay-300 hover:bg-gray-300  active:bg-gray-500 w-[20%] h-[50px] bg-white border-2 border-solid border-[#ececec] text-[#111013]">
+            <Button onClick={shareLink} className="animate-fade-right animate-once animate-delay-300 hover:bg-gray-300  active:bg-gray-500 w-[20%] h-[50px] bg-white border-2 border-solid border-[#ececec] text-[#111013]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
