@@ -6,6 +6,7 @@ import { FaPlus } from "react-icons/fa";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import vcf from "vcf";
 import { RWebShare } from "react-web-share";
+import { FaWhatsapp } from "react-icons/fa";
 
 const ProfilePage: React.FC = () => {
   const router = useRouter();
@@ -95,6 +96,12 @@ const ProfilePage: React.FC = () => {
     window.open(whatsappLink, "_blank");
   };
 
+  const sendMessageWa = () => {
+    const encodedMessage = encodeURIComponent("Hi 👋");
+    const whatsappLink = `https://wa.me/${data?.phone}?text=${encodedMessage}`;
+
+    window.open(whatsappLink, "_blank");
+  };
   if (error) {
     if (error?.response?.status === 300) {
       return (
@@ -190,15 +197,8 @@ const ProfilePage: React.FC = () => {
           </div>
 
           <div className="flex p-2 justify-center items-center  flex-wrap gap-4 mt-6 mb-5">
-            <Button className="animate-fade-right animate-delay-300 flex justify-between items-center gap-2 p-2 bg-white text-[#1d1d1d] border-2 border-solid hover:bg-gray-200 border-[#ececec] rounded-[10px]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
-              </svg>
+            <Button onClick={sendMessageWa} className="animate-fade-right animate-delay-300 flex justify-between items-center gap-2 p-2 bg-white text-[#1d1d1d] border-2 border-solid hover:bg-gray-200 border-[#ececec] rounded-[10px]">
+            <FaWhatsapp className="h-5 w-5 " />
               <span className="text-[16px]">mouad.bounfil</span>
             </Button>
             <Button className=" animate-fade-right animate-delay-300 flex justify-between items-center gap-2 p-2 bg-white text-[#1d1d1d] border-2 border-solid hover:bg-gray-200 border-[#ececec] rounded-[10px]">
