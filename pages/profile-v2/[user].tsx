@@ -70,13 +70,7 @@ const ProfilePage: React.FC = () => {
     const link = document.createElement("a");
     link.href = window.URL.createObjectURL(blob);
     link.download = fileName;
-  
-    // Open the vCard content in a new window or tab
-    const newWindow = window.open(link.href, "_blank");
-    if (newWindow) {
-      newWindow.opener = null; // Detach the new window from the current window
-    }
-  
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
