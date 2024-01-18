@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import useSWR, { mutate } from "swr";
 import { Button } from "@/components/ui/button";
 import { FaPlus } from "react-icons/fa";
@@ -9,6 +9,36 @@ const ProfilePage: React.FC = () => {
   const router = useRouter();
   const userName = router.query.user?.toString() || "";
   const { data, isLoading, error } = useSWR(`/user/profile/${userName}`);
+  
+  const [contactInfo, setContactInfo] = useState({
+    firstName: data?.firstName || "",
+    lastName: data?.lastName || "",
+    email: data?.email || "",
+    phoneNumber: data?.phoneNumber || "", // Use the correct property for the phone number
+  });
+
+  const downloadVcf = () => {
+    // Create a vCard string
+    const vCardData = `
+BEGIN:VCARD
+VERSION:3.0
+FN:${contactInfo.firstName} ${contactInfo.lastName}
+EMAIL:${contactInfo.email}
+TEL:${contactInfo.phoneNumber}
+END:VCARD
+`;
+
+    // Convert the vCard string to a Blob
+    const blob = new Blob([vCardData], { type: "text/vcard" });
+
+    // Create a link element and trigger a click to start the download
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = "contact.vcf";
+    link.click();
+  };
+
+  
   if (error) {
     if (error?.response?.status === 300) {
       return (
@@ -543,12 +573,12 @@ const ProfilePage: React.FC = () => {
             </TabsContent>
           </Tabs>
         </div>
-        <div className="w-[100%] p-2 sticky bottom-0 right-0 opacity-1 flex justify-center items-center bg-opacity-0 ">
-          <div className=" animate-fade-up animate-once animate-delay-300 w-[90%] rounded-full bg-white flex justify-between items-center pt-2 pb-2 pl-3 pr-3 border-2 border-solid border-[#eeebee]">
-            <Button className="animate-fade-right animate-once animate-delay-300 active:bg-gray-500 w-[65%] h-[90%] rounded-full bg-[#111013] text-[15px]">
+        <div className="custom-shadow-gray  w-[100%] pt-3 pb-3 sticky bottom-0 right-0 opacity-1 flex bg-white justify-center items-center border-2 border-solid border-[#eeebee]">
+          <div className=" animate-fade-up animate-once animate-delay-300 w-[100%] bg-white flex justify-between items-center pt-1 pb-1 pl-5 pr-5 ">
+            <Button onClick={downloadVcf} className="animate-fade-right animate-once animate-delay-300 active:bg-gray-500 w-[75%] h-[50px]  bg-[#111013] text-[15px]">
               Add To Contacts
             </Button>
-            <Button className=" animate-fade-right animate-once animate-delay-300 hover:bg-gray-300  active:bg-gray-500 w-[30%] h-[60%] rounded-full bg-white border-2 border-solid border-[#ececec] text-[#111013]">
+            <Button className="animate-fade-right animate-once animate-delay-300 hover:bg-gray-300  active:bg-gray-500 w-[20%] h-[50px] bg-white border-2 border-solid border-[#ececec] text-[#111013]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

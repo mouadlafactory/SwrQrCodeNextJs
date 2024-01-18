@@ -20,3 +20,6 @@
     left: -200px;
     animation: slide-from-left 1s ease-out forwards;
 }
+.custom-shadow-black {
+  box-shadow: 0 8px 12px -4px rgba(0, 0, 0, 0.2), 0 4px 8px -4px rgba(0, 0, 0, 0.12);
+}
