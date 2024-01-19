@@ -120,8 +120,6 @@ const ProfilePage: React.FC = () => {
     window.location.href = mailtoLink;
   };
 
-
-
   const dataFromDatabase = {
     socialMedia: data?.socialMedia || {}, // Provide an empty object as a default if data?.socialMedia is undefined
   };
@@ -218,8 +216,11 @@ const ProfilePage: React.FC = () => {
               {data?.description}
             </div>
           </div>
-          <SocialButtons data={dataFromDatabase} sendMessageWa={sendMessageWa} sendEmail={sendEmail}  />
-          
+          <SocialButtons
+            data={dataFromDatabase}
+            sendMessageWa={sendMessageWa}
+            sendEmail={sendEmail}
+          />
         </div>
         <div className="w-[100%] mt-3 flex justify-center items-center flex-col bg-gray-200 ">
           <Tabs
@@ -517,96 +518,22 @@ const ProfilePage: React.FC = () => {
             </TabsContent>
             <TabsContent value="link" className="w-[100%] shadow mb-10">
               <div className="bg-white p-5 rounded-2xl animate-fade-right animate-delay-300">
-                <div className="font-sans leading-20 text-[#0d0d0d] text-[18px] font-[600] mb-2">
-                  Contact
-                </div>
-                <ul className="max-w-md divide-y divide-gray-200 ">
-                  <li className="pb-2 sm:pb-4 pt-2">
-                    <div className="flex items-center space-x-4 rtl:space-x-reverse">
-                      <div className="flex-shrink-0">
-                        <Button className="flex justify-between items-center gap-2 pl-2 pr-2 pt-5 pb-5  bg-white text-[#1d1d1d] border-2 border-solid hover:bg-gray-200 border-[#ececec] rounded-[10px]">
-                          <svg
-                            className="w-6 h-6 "
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 18 18"
-                          >
-                            <path
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="m16.344 12.168-1.4-1.4a1.98 1.98 0 0 0-2.8 0l-.7.7a1.98 1.98 0 0 1-2.8 0l-2.1-2.1a1.98 1.98 0 0 1 0-2.8l.7-.7a1.981 1.981 0 0 0 0-2.8l-1.4-1.4a1.828 1.828 0 0 0-2.8 0C-.638 5.323 1.1 9.542 4.78 13.22c3.68 3.678 7.9 5.418 11.564 1.752a1.828 1.828 0 0 0 0-2.804Z"
-                            />
-                          </svg>
-                        </Button>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium  text-gray-500 truncate dark:text-white">
-                          Phone
-                        </p>
-                        <p className="text-sm text-gray-900 truncate dark:text-gray-400">
-                          +212 434748374
+                  <div className="w-full m-auto py-16 min-h-screen flex items-center justify-center">
+                    <div className="bg-white shadow overflow-hidden sm:rounded-lg pb-8">
+                      <div className="border-t border-gray-200 text-center pt-8">
+                        <h1 className="text-9xl font-bold text-purple-400">
+                          404
+                        </h1>
+                        <h1 className="text-6xl font-medium py-8">
+                          oops! Page not found
+                        </h1>
+                        <p className="text-2xl pb-8 px-12 font-medium">
+                          Oops! The page you are looking for does not exist. It
+                          might have been moved or deleted.
                         </p>
                       </div>
                     </div>
-                  </li>
-                  <li className="pb-2 sm:pb-4 pt-2">
-                    <div className="flex items-center space-x-4 rtl:space-x-reverse">
-                      <div className="flex-shrink-0">
-                        <Button className="flex justify-between items-center gap-2 pl-2 pr-2 pt-5 pb-5  bg-white text-[#1d1d1d] border-2 border-solid hover:bg-gray-200 border-[#ececec] rounded-[10px]">
-                          <svg
-                            className="w-6 h-6 font-[800]"
-                            data-name="1-Email"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 32 32"
-                          >
-                            <path d="M29 4H3a3 3 0 0 0-3 3v18a3 3 0 0 0 3 3h26a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-.72 2L16 14.77 3.72 6zM30 25a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.23l13.42 9.58a1 1 0 0 0 1.16 0L30 7.23z" />
-                          </svg>
-                        </Button>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium  text-gray-500 truncate dark:text-white">
-                          Email
-                        </p>
-                        <p className="text-sm text-gray-900 truncate dark:text-gray-400">
-                          email@flowbite.com
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="pb-2 sm:pb-4 pt-2">
-                    <div className="flex items-center space-x-4 rtl:space-x-reverse">
-                      <div className="flex-shrink-0">
-                        <Button className="flex justify-between items-center gap-2 pl-2 pr-2 pt-5 pb-5  bg-white text-[#1d1d1d] border-2 border-solid hover:bg-gray-200 border-[#ececec] rounded-[10px]">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25"
-                            />
-                          </svg>
-                        </Button>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium  text-gray-500 truncate dark:text-white">
-                          Web Site
-                        </p>
-                        <p className="text-sm text-gray-900 truncate dark:text-gray-400">
-                          https://chat.openai.com/
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+                  </div>
               </div>
             </TabsContent>
           </Tabs>

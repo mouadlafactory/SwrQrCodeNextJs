@@ -1,19 +1,19 @@
 {
   "id": 11,
-  "firstName": "Mouad",
-  "lastName": "Bounfil",
+  "firstName": "Zahra",
+  "lastName": "Laeliani",
   "age": 22,
   "position": "Full Stack Web Developer",
   "Company": "LaStartupStation",
-  "description": "I code dreams into reality with a touch of flair – MERN Stack Enthusiast 💻✨ | JavaScript Maestro 🚀",
-  "gender": "male",
-  "email": "mouad.bounfil.it@gmail.com",
-  "phone": "668956178",
-  "username": "Mouad_Bounfil",
-  "password": "Mouad_Bounfil",
-  "birthDate": "10-02-2001",
-  "image": "https://firebasestorage.googleapis.com/v0/b/ecommerce-arkx.appspot.com/o/MyLogo4.PNG?alt=media&token=c50a9aff-2dfb-48b7-9227-e05811ee341b",
-  "university": "École Supérieure de Technologie Casablanca",
+  "description": "I code dreams into reality with a touch of flair – Wordpress Enthusiast 💻✨ | JavaScript Maestro 🚀",
+  "gender": "female",
+  "email": "zahra.laeliani.1@gmail.com",
+  "phone": "656921258",
+  "username": "Zahra",
+  "password": "Zahra",
+  "birthDate": "15-06-2001",
+  "image": "https://firebasestorage.googleapis.com/v0/b/ecommerce-arkx.appspot.com/o/MyLogo6.PNG?alt=media&token=a68deec1-dbd1-44cc-9e41-b1e67618252f",
+  "university": "Offpt",
   "socialMedia": {
     "whatsapp": {
       "name": "mouad.bounfil",
@@ -43,3 +43,4 @@
     
   }
 }
+

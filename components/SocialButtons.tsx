@@ -57,6 +57,20 @@ const SocialButtons = ({ data, sendMessageWa, sendEmail }) => {
       if (value == null) {
         return null;
       }
+      if (key == "whatsapp") {
+        return {
+          key,
+          icon: getSocialIcon(key), // Implement this function to get the corresponding icon
+          text: value?.name || defaultText,
+          link: value?.link || defaultLink,
+          onClick:
+            key === "whatsapp"
+              ? sendMessageWa
+              : key === "email"
+              ? sendEmail
+              : null, // You can set onClick handlers based on the key
+        };
+      }
       return {
         key,
         icon: getSocialIcon(key), // Implement this function to get the corresponding icon
@@ -81,6 +95,7 @@ const SocialButtons = ({ data, sendMessageWa, sendEmail }) => {
   return (
     <div className="flex p-2 justify-center items-center flex-wrap gap-4 mt-6 mb-5">
       {buttonsToShow.map(({ key, icon, text, link, onClick }) => (
+        
         <a key={key} href={link} target="_blank" rel="noopener noreferrer">
           <Button
             onClick={onClick}
