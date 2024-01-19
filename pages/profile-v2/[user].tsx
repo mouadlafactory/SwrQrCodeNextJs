@@ -210,7 +210,7 @@ const ProfilePage: React.FC = () => {
             <h3 className="font-sans leading-20 text-[#0d0d0d] text-[25px] font-semibold animate-fade-left animate-once animate-delay-300">
               {data?.firstName} {data?.lastName}
             </h3>
-            <div className="p-2 font-sans text-[#595b5a] text-[17px] font-medium animate-fade-up animate-delay-300">
+            <div className="font-sans text-[#595b5a] text-[17px] font-medium animate-fade-up animate-delay-300">
               {data?.position} at{" "}
               <span className="text-[#0d0d0d]">{data?.Company}</span>
             </div>
